@@ -1,8 +1,9 @@
 import { getCategoriesList } from "@lib/data/categories"
 import { getCollectionsList } from "@lib/data/collections"
+import Link from "next/link"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-export default async function Footer() {
+export default async function ModernFooter() {
   const { collections } = await getCollectionsList(0, 6)
   const { product_categories } = await getCategoriesList(0, 6)
 
@@ -41,10 +42,10 @@ export default async function Footer() {
               {/* Social Links */}
               <div className="flex space-x-4">
                 {[
-                  { name: 'Facebook', href: '#' },
-                  { name: 'Twitter', href: '#' },
-                  { name: 'Instagram', href: '#' },
-                  { name: 'LinkedIn', href: '#' },
+                  { name: 'Facebook', icon: 'M18.77 7.46H15.5v-1.9c0-.9.6-1.1 1-.1.1h2.2v-3.32h-3c-3.44 0-4.16 2.53-4.16 4.1v1.15h-2v3.32h2v8.69h3.32v-8.69h2.8l.37-3.32z', href: '#' },
+                  { name: 'Twitter', icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z', href: '#' },
+                  { name: 'Instagram', icon: 'M16 11.37A4.63 4.63 0 1111.37 16 4.63 4.63 0 0116 11.37zm1.94-4.94a1.31 1.31 0 011.31-1.31h.01a1.31 1.31 0 011.31 1.31v.01a1.31 1.31 0 01-1.31 1.31h-.01a1.31 1.31 0 01-1.31-1.31v-.01zM12 2.16c3.2-.08 6.32-.08 9.52 0 1.54.05 2.78 1.32 2.84 2.84.08 3.2.08 6.32 0 9.52-.05 1.54-1.32 2.78-2.84 2.84-3.2.08-6.32.08-9.52 0-1.54-.05-2.78-1.32-2.84-2.84-.08-3.2-.08-6.32 0-9.52.05-1.54 1.32-2.78 2.84-2.84z', href: '#' },
+                  { name: 'LinkedIn', icon: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 2a2 2 0 100 4 2 2 0 000-4z', href: '#' },
                 ].map((social) => (
                   <a
                     key={social.name}
@@ -53,7 +54,7 @@ export default async function Footer() {
                     aria-label={social.name}
                   >
                     <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={social.icon} />
                     </svg>
                   </a>
                 ))}

@@ -1,5 +1,5 @@
 import { getCustomer } from "@lib/data/customer"
-import KindeAccountLayout from "@modules/account/templates/kinde-account-layout"
+import AccountLayout from "@modules/account/templates/account-layout"
 
 export default async function AccountPageLayout({
   dashboard,
@@ -11,8 +11,8 @@ export default async function AccountPageLayout({
   const customer = await getCustomer().catch(() => null)
 
   return (
-    <KindeAccountLayout customer={customer}>
+    <AccountLayout customer={customer}>
       {customer ? dashboard : login}
-    </KindeAccountLayout>
+    </AccountLayout>
   )
 }

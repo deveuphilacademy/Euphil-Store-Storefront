@@ -8,10 +8,9 @@ export default async function FeaturedProducts({
   collections: HttpTypes.StoreCollection[]
   region: HttpTypes.StoreRegion
 }) {
-  // Get first collection for featured products
-  const featuredCollection = collections[0]
-  
-  if (!featuredCollection) return null
-  
-  return <ProductRail collection={featuredCollection} region={region} />
+  return collections.map((collection) => (
+    <li key={collection.id}>
+      <ProductRail collection={collection} region={region} />
+    </li>
+  ))
 }

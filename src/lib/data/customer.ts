@@ -58,10 +58,13 @@ export async function signup(_currentState: unknown, formData: FormData) {
     setAuthToken(typeof loginToken === 'string' ? loginToken : loginToken.location)
 
     revalidateTag("customer")
-    return createdCustomer
   } catch (error: any) {
     return error.toString()
   }
+
+  // Get country code from form or use default
+  const countryCode = (formData.get("country_code") as string) || process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
+  redirect(`/${countryCode}/account`)
 }
 
 export async function login(_currentState: unknown, formData: FormData) {
@@ -78,10 +81,23 @@ export async function login(_currentState: unknown, formData: FormData) {
   } catch (error: any) {
     return error.toString()
   }
+  
+  // Get country code from form or use default
+  const countryCode = (formData.get("country_code") as string) || process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
+  redirect(`/${countryCode}/account`)
 }
 
 export async function signout(countryCode: string) {
-  await sdk.auth.logout()
+  try {
+    // Try to logout from the backend with current auth headers
+    const headers = getAuthHeaders()
+    await sdk.auth.logout(headers)
+  } catch (error) {
+    // Log the error but continue with local logout
+    console.warn('Failed to logout from backend:', error)
+  }
+  
+  // Always perform local logout regardless of backend response
   removeAuthToken()
   revalidateTag("auth")
   revalidateTag("customer")

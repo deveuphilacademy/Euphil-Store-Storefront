@@ -12,7 +12,7 @@ import { getCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
   title: "Profile",
-  description: "View and edit your Euphil Store profile.",
+  description: "View and edit your Medusa Store profile.",
 }
 
 export default async function Profile() {
@@ -24,21 +24,30 @@ export default async function Profile() {
   }
 
   return (
-    <div className="space-y-8" data-testid="profile-page-wrapper">
-      <div>
-        <h2 className="text-2xl font-semibold text-gray-900">Profile Settings</h2>
-        <p className="text-gray-500 mt-1">
-          Manage your personal information and account preferences
+    <div className="w-full" data-testid="profile-page-wrapper">
+      <div className="mb-8 flex flex-col gap-y-4">
+        <h1 className="text-2xl-semi">Profile</h1>
+        <p className="text-base-regular">
+          View and update your profile information, including your name, email,
+          and phone number. You can also update your billing address, or change
+          your password.
         </p>
       </div>
-      
-      <div className="space-y-6">
+      <div className="flex flex-col gap-y-8 w-full">
         <ProfileName customer={customer} />
+        <Divider />
         <ProfileEmail customer={customer} />
+        <Divider />
         <ProfilePhone customer={customer} />
+        <Divider />
         <ProfilePassword customer={customer} />
+        <Divider />
         <ProfileBillingAddress customer={customer} regions={regions} />
       </div>
     </div>
   )
+}
+
+const Divider = () => {
+  return <div className="w-full h-px bg-gray-200" />
 }

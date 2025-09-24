@@ -1,18 +1,17 @@
 import { Metadata } from "next"
 
-import FeaturedProducts from "@modules/home/components/featured-products"
-import HeroSlider from "@modules/home/components/hero-slider"
-import ProductShowcase from "@modules/home/components/product-showcase"
-import Newsletter from "@modules/home/components/newsletter"
-import NigerianCategories from "@modules/home/components/nigerian-categories"
-import FeaturesSection from "@modules/home/components/features-section"
-import { getCollectionsWithProducts } from "@lib/data/collections"
-import { getRegion } from "@lib/data/regions"
+import HeroSliderSection from "@modules/home/components/hero-slider-section"
+import CategoriesSectionCarousel from "@modules/home/components/categories-section-carousel"
+import NewArrivals from "@modules/home/components/new-arrivals"
+import PromoBanner from "@modules/home/components/promo-banner"
+import BestSeller from "@modules/home/components/best-seller"
+import Countdown from "@modules/home/components/countdown"
+import Testimonials from "@modules/home/components/testimonials"
+import NewsletterModern from "@modules/home/components/newsletter-modern"
 
 export const metadata: Metadata = {
-  title: "Euphil Foods - Premium Quality Products",
-  description:
-    "Shop premium electronics, fashion, home goods, and authentic Nigerian ingredients. Quality products delivered worldwide with exceptional service.",
+  title: "Medusa Store — Modern Shop",
+  description: "A modern storefront powered by Medusa, styled with premium template design.",
 }
 
 export default async function Home({
@@ -20,27 +19,36 @@ export default async function Home({
 }: {
   params: { countryCode: string }
 }) {
-  const collections = await getCollectionsWithProducts(countryCode)
-  const region = await getRegion(countryCode)
-
-  if (!collections || !region) {
-    return null
-  }
+  if (!countryCode) return null
 
   return (
-    <div className="min-h-screen">
-      <HeroSlider />
-      <FeaturesSection />
-      <ProductShowcase />
-      <NigerianCategories />
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-3 text-center">Popular Nigerian Foods</h2>
-          <p className="text-gray-600 text-center mb-8">Fresh ingredients and ready-to-eat meals</p>
-          <FeaturedProducts collections={collections} region={region} />
-        </div>
-      </div>
-      <Newsletter />
-    </div>
+    <>
+      {/* Hero Slider Section */}
+      <HeroSliderSection countryCode={countryCode} />
+      
+      {/* Spacing */}
+      <div className="py-10 lg:py-15" />
+      
+      {/* Categories Carousel */}
+      <CategoriesSectionCarousel countryCode={countryCode} />
+      
+      {/* New Arrivals Grid */}
+      <NewArrivals countryCode={countryCode} />
+      
+      {/* Promotional Banners */}
+      <PromoBanner />
+      
+      {/* Best Sellers Grid */}
+      <BestSeller countryCode={countryCode} />
+      
+      {/* Countdown Timer */}
+      <Countdown />
+      
+      {/* Testimonials Carousel */}
+      {/* <Testimonials /> */}
+      
+      {/* Newsletter Signup */}
+      {/* <NewsletterModern /> */}
+    </>
   )
 }

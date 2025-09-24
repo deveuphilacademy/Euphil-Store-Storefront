@@ -26,7 +26,11 @@ const nextConfig = {
       },
       { // Note: only needed when using local-file for product media
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL?.replace('https://', ''),
+        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL?.replace(/^https?:\/\//, ''),
+      },
+      { // Note: Railway backend images
+        protocol: "https",
+        hostname: "medusa-v3-backend-production.up.railway.app",
       },
       { // Note: can be removed after deleting demo products
         protocol: "https",

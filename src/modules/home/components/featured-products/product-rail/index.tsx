@@ -1,7 +1,8 @@
 import { HttpTypes } from "@medusajs/types"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import ProductCard from "@modules/products/components/product-card"
+import { Text } from "@medusajs/ui"
+
+import InteractiveLink from "@modules/common/components/interactive-link"
+import ProductPreview from "@modules/products/components/product-preview"
 
 export default function ProductRail({
   collection,
@@ -17,22 +18,22 @@ export default function ProductRail({
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products &&
-          products.slice(0, 8).map((product) => (
-            <ProductCard key={product.id} product={product} region={region} />
-          ))}
+    <div className="content-container py-12 small:py-24">
+      <div className="flex justify-between mb-8">
+        <Text className="txt-xlarge">{collection.title}</Text>
+        <InteractiveLink href={`/collections/${collection.handle}`}>
+          View all
+        </InteractiveLink>
       </div>
-      {products.length > 8 && (
-        <div className="flex justify-center mt-8">
-          <Link href={`/collections/${collection.handle}`}>
-            <Button variant="outline" size="lg">
-              View All Products
-            </Button>
-          </Link>
-        </div>
-      )}
+      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
+        {products &&
+          products.map((product) => (
+            <li key={product.id}>
+              {/* @ts-ignore */}
+              <ProductPreview product={product} region={region} isFeatured />
+            </li>
+          ))}
+      </ul>
     </div>
   )
 }
